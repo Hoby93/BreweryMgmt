@@ -9,5 +9,6 @@ namespace BreweryManagementAPI.Domain.Interfaces
         Task AddAsync(Beer beer);
         Task UpdateAsync(Beer beer);
         Task DeleteAsync(int id);
+        Task<Dictionary<int, decimal>> GetBeerPricesAsync(IEnumerable<OrderDetail> orderDetails);
     }
 }

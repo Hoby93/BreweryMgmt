@@ -26,15 +26,15 @@ INSERT INTO Wholesaler (name) VALUES
 ('Belgian Brewers Supply'),
 ('LeMarché Bières');
 
-INSERT INTO WholesalerStock (wholesaler_id, beer_id, quantity) VALUES
-(1, 1, 10),
-(1, 2, 5),
-(2, 3, 15),
-(2, 4, 8),
-(3, 5, 20),
-(3, 6, 12),
-(4, 1, 30),
-(4, 5, 25);
+INSERT INTO WholesalerStock (wholesaler_id, beer_id, action, quantity) VALUES
+(1, 1, 1, 10),
+(1, 2, 1, 5),
+(1, 2, 1, 15),
+(1, 1, 0, 5),
+(2, 3, 1, 20),
+(2, 3, 1, 25),
+(2, 3, 0, 30),
+(2, 3, 0, 5);
 
 INSERT INTO Orders (wholesaler_id) VALUES
 (1),

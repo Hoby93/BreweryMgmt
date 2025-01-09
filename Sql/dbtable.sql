@@ -18,7 +18,7 @@ CREATE TABLE Beer (
     alcohol_content DECIMAL(5, 2) NOT NULL,
     price DECIMAL(10, 2) NOT NULL,     
     brewer_id INT NOT NULL,
-    FOREIGN KEY (brewer_id) REFERENCES brewery(id_brewery)
+    FOREIGN KEY (brewer_id) REFERENCES brewer(id_brewer)
 );
 
 CREATE TABLE Wholesaler (
@@ -30,7 +30,9 @@ CREATE TABLE WholesalerStock (
     id_wss SERIAL PRIMARY KEY,
     wholesaler_id INT NOT NULL,
     beer_id INT NOT NULL,
-    quantity INT NOT NULL DEFAULT 0, -- Quantité restante en stock
+    action INT NOT NULL DEFAULT 0, -- Out:0, In:1, Rep:2
+    quantity INT NOT NULL DEFAULT 0,
+    action_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date de la mvt
     FOREIGN KEY (wholesaler_id) REFERENCES wholesaler(id_wholesaler),
     FOREIGN KEY (beer_id) REFERENCES Beer(id_beer)
 );

@@ -44,5 +44,17 @@ namespace BreweryManagementAPI.Infrastructure.Persistence
                 await _context.SaveChangesAsync();
             }
         }
+
+        // Méthode pour récupérer les prix des bières
+        public async Task<Dictionary<int, decimal>> GetBeerPricesAsync(IEnumerable<OrderDetail> orderDetails)
+        {
+            // Extraire tous les BeerId (même avec doublons) de OrderDetails
+            var beerIds = orderDetails.Select(od => od.BeerId);
+
+            // Charger les prix pour tous les BeerId présents
+            return await _context.Beers
+                .Where(b => beerIds.Contains(b.Id))
+                .ToDictionaryAsync(b => b.Id, b => b.Price);
+        }
     }
 }
