@@ -17,7 +17,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpPost("request-quote")]
-    public async Task<ActionResult> RequestQuote(Order order)
+    public async Task<ActionResult> RequestQuote([FromBody] Order order)
     {
         try {
             var response = await _wholesalerService.GetOrderQuoteAsync(order);

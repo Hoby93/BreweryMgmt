@@ -16,16 +16,11 @@ namespace BreweryManagementAPI.Controllers
             _breweryService = breweryService;
         }
 
-        [HttpGet]
-        public string Get()
-        {
-            return "Hello World From BreweryController";
-        }
-
         [HttpGet("all-beers-by-brewery")]
-        public ActionResult<List<Brewery>> GetAllBeersByBrewery()
+        public async Task<ActionResult<List<Brewery>>> GetAllBeersByBrewery()
         {
-            var breweries = _breweryService.GetAllBeersByBrewery();
+            var breweries = await _breweryService.GetBreweriesWithBeersAsync();
+            
             return Ok(breweries);
         }
     }

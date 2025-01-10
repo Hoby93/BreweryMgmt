@@ -15,13 +15,13 @@ namespace BreweryManagementAPI.Infrastructure.Persistence
                 .Any(group => group.Count() > 1);
             
             if(!isWholesalerExist) {
-                throw new Exception($"Le grossiste doit exister");
+                throw new Exception("The wholesaler must exist.");
             }
             if(!order.OrderDetails.Any()) {
-                throw new Exception($"La commande ne peut pas etre vide");
+                throw new Exception("The order cannot be empty");
             }
             if(hasDuplicatedBeer) {
-                throw new Exception($"La commande ne peut pas contenir de doublons");
+                throw new Exception("The order cannot contain duplicates beers.");
             }
         }
     }

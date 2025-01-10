@@ -21,7 +21,7 @@ namespace BreweryManagementAPI.Application.Services
             await _rwholesaler.AddStockActionAsync(stockAction);
         }
 
-        public async Task<string> GetOrderQuoteAsync(Order order)
+        public async Task<decimal> GetOrderQuoteAsync(Order order)
         {
             try {
                 await _rorder.CheckOrderAsync(_rwholesaler, order); // Verifier la commande
@@ -39,7 +39,7 @@ namespace BreweryManagementAPI.Application.Services
                 throw e;
             }
 
-            return $"Total a payer: {order.GetDevis()}";
+            return order.GetDevis();
         }
  
     }

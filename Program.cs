@@ -14,11 +14,12 @@ builder.Services.AddDbContext<BreweryContext>(options =>
 
 
 // Ajoutez les services nécessaires au conteneur d'injection de dépendances
-builder.Services.AddScoped<IBeerRepository, BeerRepository>();  // Enregistrement du repository
+builder.Services.AddScoped<IBreweryRepository, BreweryRepository>(); 
+builder.Services.AddScoped<IBeerRepository, BeerRepository>(); 
 builder.Services.AddScoped<IWholesalerRepository, WholesalerRepository>();  
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();  
 builder.Services.AddScoped<BeerService>();  // Enregistrement du service BeerService
-builder.Services.AddScoped<BreweryService>();  // Enregistrement du service BeerService
+builder.Services.AddScoped<BreweryService>();  // Enregistrement du service BreweryService
 builder.Services.AddScoped<WholesalerService>();  // Enregistrement du service WholesalerService
 
 

@@ -1,29 +1,23 @@
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Collections.Generic;
 using BreweryManagementAPI.Domain.Entities;
-using BreweryManagementAPI.Infrastructure.Persistence;
+using BreweryManagementAPI.Domain.Interfaces;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BreweryManagementAPI.Application.Services
 {
     public class BreweryService
     {
-        private readonly BreweryContext _context;
+        private readonly IBreweryRepository _breweryRepository;
 
-        public BreweryService(BreweryContext context)
+        public BreweryService(IBreweryRepository breweryRepository)
         {
-            _context = context;
+            _breweryRepository = breweryRepository;
         }
 
-        public List<Brewery> GetAllBeersByBrewery()
+        public async Task<List<Brewery>> GetBreweriesWithBeersAsync()
         {
-            // Utilisation de Include pour charger les brasseries et leurs brasseurs, puis les bières associées
-            var breweries = _context.Breweries
-                .Include(b => b.Brewers)  // Charger les brasseurs associés à chaque brasserie
-                .ThenInclude(br => br.Beers)  // Charger les bières associées à chaque brasseur
-                .ToList();  // Exécute la requête et retourne la liste de brasseries avec leurs bières
-
-            return breweries;
+            // Appel au repository pour obtenir les brasseries avec leurs bières
+            return await _breweryRepository.GetAllBeersByBreweryAsync();
         }
     }
 }

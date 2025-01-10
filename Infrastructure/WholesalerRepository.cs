@@ -1,6 +1,7 @@
 using BreweryManagementAPI.Domain.Entities;
 using BreweryManagementAPI.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using BreweryManagementAPI.Domain.Constants;
 
 namespace BreweryManagementAPI.Infrastructure.Persistence
 {
@@ -36,19 +37,19 @@ namespace BreweryManagementAPI.Infrastructure.Persistence
 
             if (!exists)
             {
-                return -1; // Retourner -1 si aucune ligne correspondante n'est trouvée
+                return Stock.UNAVAILABLE;
             }
 
-            // Récupérer la dernière date d'action où Action = 2 pour le grossiste et la bière spécifiés
+            // Récupérer la dernière date de report pour le grossiste et la bière spécifiés
             var lastReportDate = (await _context.WholesalerStocks
-                .Where(ws => ws.WholesalerId == wholesalerId && ws.BeerId == beerId && ws.Action == 2)
+                .Where(ws => ws.WholesalerId == wholesalerId && ws.BeerId == beerId && ws.Action == Stock.REPORT)
                 .MaxAsync(ws => (DateTime?)ws.ActionDate))?.ToUniversalTime() ?? DateTime.MinValue;
 
 
             // Calculer le solde de stock à partir de cette date
             var stockBalance = await _context.WholesalerStocks
                 .Where(ws => ws.WholesalerId == wholesalerId && ws.BeerId == beerId && ws.ActionDate >= lastReportDate)
-                .SumAsync(ws => ws.Action == 0 ? -ws.Quantity : ws.Quantity);
+                .SumAsync(ws => ws.Action == Stock.OUT ? -ws.Quantity : ws.Quantity);
 
             return stockBalance;
         }
@@ -60,15 +61,15 @@ namespace BreweryManagementAPI.Infrastructure.Persistence
             int restOnStock = await this.GetBeerStockBalanceAsync(wholesalerId, order.BeerId);
 
             // Si la biere n'est pas disponible, lever une exception
-            if (restOnStock == -1)
+            if (restOnStock == Stock.UNAVAILABLE)
             {
-                throw new Exception($"Cette bière n'est pas disponible.");
+                throw new Exception("This beer is not available for this wholesaler.");
             }
 
             // Si la quantité demandée est supérieure au stock disponible, lever une exception
             if (order.Quantity > restOnStock)
             {
-                throw new Exception($"Quantité insuffisante pour la bière {order.BeerId}. Stock disponible : {restOnStock}.");
+                throw new Exception($"Insufficient quantity for beer {order.BeerId}. Available stock: {restOnStock}.");
             }
         }
     }

@@ -1,10 +1,4 @@
-select * from beer 
-    join brewer on beer.brewer_id = brewer.id_brewer
-    join brewery on brewer.brewery_id = brewery.id_brewery;
-
-
-
-
+-- Avoir le reste en stock
 SELECT 
     COALESCE(SUM(CASE WHEN action = 0 THEN -quantity ELSE quantity END), 0) AS stock_balance
 FROM 
