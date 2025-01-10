@@ -23,3 +23,7 @@ PostgreSQL: Database for storing brewery, wholesaler, and order data.
 Prerequisites
 Install .NET 7.0 SDK.
 Install PostgreSQL.
+
+6. Key Files
+API Presentation: The Postman collection for testing the API can be found at '/brewerymgmt.postman_collection.json'.
+Database Design and Setup: SQL scripts for database schema and initial data setup are located in the '/Sql' folder.
