@@ -1,0 +1,159 @@
+{
+	"info": {
+		"name": "Brewery Management API",
+		"description": "API for managing stock and orders for beer wholesalers and brewery.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Brewery Beers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/beer",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"beer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Beer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Nomm Tree\",\n    \"alcoholContent\": 9.50,\n    \"price\": 3.80,\n    \"brewerId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/beer",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"beer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Beer",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/beer/6",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"beer",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add On WholeSaler Stock",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"wholesalerId\": 1,\n    \"beerId\": 1,\n    \"action\": 1,\n    \"quantity\": 10,\n    \"actionDate\": \"2025-01-10T14:30:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/wholesaler/wholesaler-stock-action",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"wholesaler",
+						"wholesaler-stock-action"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Report On WholeSaler Stock",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"wholesalerId\": 1,\n    \"beerId\": 1,\n    \"action\": 2,\n    \"quantity\": 15,\n    \"actionDate\": \"2025-01-10T16:30:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/wholesaler/wholesaler-stock-action",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"wholesaler",
+						"wholesaler-stock-action"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request Quote",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"wholesalerId\": 1,\n    \"orderDate\": \"2025-01-10T12:00:00\",\n    \"orderDetails\": [\n        {\n            \"beerId\": 2,\n            \"quantity\": 10\n        },\n        {\n            \"beerId\": 1,\n            \"quantity\": 5\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/Order/request-quote",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"Order",
+						"request-quote"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [],
+	"variable": []
+}
